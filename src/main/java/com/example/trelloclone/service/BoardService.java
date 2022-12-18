@@ -26,9 +26,9 @@ public class BoardService implements IBoardService {
 
   @Override
   public Board updateBoard(Board board) {
-    Optional<Board> boardDb = this.boardRepository.findById(board.getId());
-    if (boardDb.isPresent()){
-      Board updateBoard = boardDb.get();
+    Optional<Board> boardData = this.boardRepository.findById(board.getId());
+    if (boardData.isPresent()){
+      Board updateBoard = boardData.get();
       updateBoard.setId(board.getId());
       updateBoard.setName(board.getName());
       this.boardRepository.save(updateBoard);
@@ -45,9 +45,9 @@ public class BoardService implements IBoardService {
 
   @Override
   public void deleteBoard(Integer id) {
-    Optional<Board> boardDb = this.boardRepository.findById(id);
-    if (boardDb.isPresent()){
-      this.boardRepository.delete(boardDb.get());
+    Optional<Board> boardData = this.boardRepository.findById(id);
+    if (boardData.isPresent()){
+      this.boardRepository.delete(boardData.get());
     }else {
       throw new NotFoundException("Board not found!");
     }
