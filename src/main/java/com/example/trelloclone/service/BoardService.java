@@ -1,9 +1,12 @@
 package com.example.trelloclone.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +28,17 @@ public class BoardService implements IBoardService {
   }
 
   @Override
-  public Board updateBoard(Board board) {
-    Optional<Board> boardData = this.boardRepository.findById(board.getId());
+  public Board updateBoard(Integer id, Map<String, Object> fields) {
+    Optional<Board> boardData = this.boardRepository.findById(id);
     if (boardData.isPresent()){
-      Board updateBoard = boardData.get();
-      updateBoard.setId(board.getId());
-      updateBoard.setName(board.getName());
-      this.boardRepository.save(updateBoard);
-      return updateBoard;
+      Board updatedBoard = boardData.get();
+      fields.forEach((k, v) -> {
+        Field field = ReflectionUtils.findRequiredField(Board.class, k);
+        field.setAccessible(true);
+        ReflectionUtils.setField(field, updatedBoard, v);
+      });
+      this.boardRepository.save(updatedBoard);
+      return updatedBoard;
     } else {
       throw new NotFoundException("Board not found!");
     }

@@ -1,5 +1,8 @@
 package com.example.trelloclone.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,13 +15,17 @@ import jakarta.persistence.Table;
 public class Board {
 
   @Id
-  @GeneratedValue(generator = "board_gen", strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
   
   @Column(name = "name")
   private String name;
 
-  public Board(String name) {
+  // for deserialisation
+  public Board() {}
+
+  @JsonCreator
+  public Board(@JsonProperty("name") String name) {
     this.name = name;
   }
   
@@ -34,5 +41,5 @@ public class Board {
   public void setName(String name) {
     this.name = name;
   }
-  
+
 }

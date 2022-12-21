@@ -1,9 +1,12 @@
 package com.example.trelloclone.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,17 +27,22 @@ public class TicketService implements ITicketService {
   }
 
   @Override
-  public Ticket updateTicket(Ticket ticket) {
-    Optional<Ticket> ticketData = this.ticketRepository.findById(ticket.getId());
+  public Ticket updateTicket(Integer id, Map<String, Object> fields) {
+    Optional<Ticket> ticketData = this.ticketRepository.findById(id);
     if (ticketData.isPresent()) {
       Ticket updatedTicket = ticketData.get();
-      updatedTicket.setId(ticket.getId());
-      updatedTicket.setTitle(ticket.getTitle());
-      updatedTicket.setDescription(ticket.getDescription());
-      updatedTicket.setStatusId(ticket.getStatusId());
+      // Map key is field name, v is value
+      fields.forEach((k, v) -> {
+        // use reflection to get field k on ticket and set it to value v
+        Field field = ReflectionUtils.findRequiredField(Ticket.class, k);
+        field.setAccessible(true);
+        ReflectionUtils.setField(field, updatedTicket, v);
+      });
       this.ticketRepository.save(updatedTicket);
+      return updatedTicket;
+    }else {
+      throw new NotFoundException("Ticket not found!");
     }
-    return null;
   }
 
   @Override
