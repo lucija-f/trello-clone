@@ -48,7 +48,7 @@ public class TicketController {
   @DeleteMapping("tickets/{id}")
   public ResponseEntity<?> deleteTicketById(@PathVariable("id") Integer id) {
     ticketService.deleteTicket(id);
-    return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK);
+    return ResponseEntity.ok().body(HttpStatus.OK);
   }
 
 }

@@ -45,7 +45,7 @@ public class BoardController {
   @DeleteMapping(value="/boards/{id}")
   public ResponseEntity<?> deleteBoardById(@PathVariable Integer id) {
       boardService.deleteBoard(id);
-      return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK);
+      return ResponseEntity.ok().body(HttpStatus.OK);
   }
 
   @PatchMapping(value="boards/{id}")
