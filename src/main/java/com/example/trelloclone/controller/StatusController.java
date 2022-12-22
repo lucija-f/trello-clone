@@ -2,7 +2,6 @@ package com.example.trelloclone.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.trelloclone.model.Status;
 import com.example.trelloclone.service.StatusService;
 
-import jakarta.websocket.server.PathParam;
-
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -59,7 +52,5 @@ public class StatusController {
       return ResponseEntity.ok().body(HttpStatus.OK);
   }
   
-  
-
   
 }
