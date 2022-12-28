@@ -62,6 +62,11 @@ public class TicketService implements ITicketService {
   }
 
   @Override
+  public List<Ticket> getAllTicketsByStatusId(Integer statusId) {
+    return this.ticketRepository.findByStatusId(statusId);
+  }
+
+  @Override
   public void deleteTicket(Integer id) {
     Optional<Ticket> ticketData = this.ticketRepository.findById(id);
     if (ticketData.isPresent()) {

@@ -19,7 +19,7 @@ import com.example.trelloclone.service.StatusService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class StatusController {
 

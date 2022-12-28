@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.trelloclone.model.Ticket;
 import com.example.trelloclone.service.TicketService;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class TicketController {
   
@@ -33,6 +33,11 @@ public class TicketController {
   @GetMapping("/tickets/{id}")
   public ResponseEntity<Ticket> getTicketById(@PathVariable("id") Integer id) {
     return ResponseEntity.ok().body(ticketService.getTicketById(id));
+  }
+
+  @GetMapping("/tickets/status/{statusId}")
+  public ResponseEntity<List<Ticket>> getAllTicketByStatusId(@PathVariable("statusId") Integer statusId) {
+    return ResponseEntity.ok().body(ticketService.getAllTicketsByStatusId(statusId));
   }
 
   @PostMapping("/tickets")
