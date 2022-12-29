@@ -17,4 +17,6 @@ public interface ITicketService {
   List<Ticket> getAllTicketsByStatusId(Integer statusId);
 
   void deleteTicket(Integer id);
+
+  void deleteTicketsByStatusId(Integer statusId);
 }

@@ -56,4 +56,10 @@ public class TicketController {
     return ResponseEntity.ok().body(HttpStatus.OK);
   }
 
+  @DeleteMapping("tickets/status/{statusId}")
+  public ResponseEntity<?> deleteTicketsByStatusId(@PathVariable("statusId") Integer statusId) {
+    ticketService.deleteTicketsByStatusId(statusId);
+    return ResponseEntity.ok().body(HttpStatus.OK);
+  }
+
 }

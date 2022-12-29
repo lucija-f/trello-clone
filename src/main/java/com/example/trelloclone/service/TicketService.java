@@ -74,7 +74,18 @@ public class TicketService implements ITicketService {
     }else {
       throw new NotFoundException("Ticket not found.");
     }
-    
+  }
+
+  @Override
+  public void deleteTicketsByStatusId(Integer statusId) {
+    List<Ticket> ticketData = this.ticketRepository.findByStatusId(statusId);
+    if (ticketData.size() != 0) {
+      ticketData.forEach(ticket -> {
+        this.ticketRepository.delete(ticket);
+      });
+    }else {
+      return;
+    }
   }
   
 }

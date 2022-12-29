@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trelloclone.model.Status;
 import com.example.trelloclone.service.StatusService;
+import com.example.trelloclone.service.TicketService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,6 +26,8 @@ public class StatusController {
 
   @Autowired
   private StatusService statusService;
+  @Autowired
+  private TicketService ticketService;
 
   @GetMapping(value="/statuses")
   public ResponseEntity<List<Status>> getAllStatuses() {
@@ -48,7 +51,8 @@ public class StatusController {
 
   @DeleteMapping(value="/statuses/{id}")
   public ResponseEntity<?> deleteStatus(@PathVariable Integer id) {
-    statusService.deleteStatusById(id);
+    this.ticketService.deleteTicketsByStatusId(id);
+    this.statusService.deleteStatusById(id);
       return ResponseEntity.ok().body(HttpStatus.OK);
   }
   
