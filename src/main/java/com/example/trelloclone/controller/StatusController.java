@@ -34,6 +34,11 @@ public class StatusController {
       return ResponseEntity.ok().body(statusService.getAllStatuses());
   }
 
+  @GetMapping("/statuses/board/{boardId}")
+  public ResponseEntity<List<Status>> getAllStatusByBoardId(@PathVariable("boardId") Integer boardId) {
+    return ResponseEntity.ok().body(statusService.getAllStatusByBoardId(boardId));
+  }
+
   @PostMapping(value="/statuses")
   public ResponseEntity<Status> createStatus(@RequestBody Status status) {
       return ResponseEntity.ok().body(statusService.createStatus(status));

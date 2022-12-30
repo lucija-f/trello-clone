@@ -20,7 +20,7 @@ import com.example.trelloclone.model.Board;
 import com.example.trelloclone.service.BoardService;
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class BoardController {
   

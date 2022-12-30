@@ -69,8 +69,10 @@ public class StatusService implements IStatusService {
     }else {
       throw new NotFoundException("Status not found.");
     }
-    
   }
 
-  
+  @Override
+  public List<Status> getAllStatusByBoardId(Integer boardId) {
+    return this.statusRepository.findByBoardId(boardId);
+  }
 }

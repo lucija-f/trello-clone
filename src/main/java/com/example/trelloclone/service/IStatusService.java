@@ -13,6 +13,8 @@ public interface IStatusService {
 
   List<Status> getAllStatuses();
 
+  List<Status> getAllStatusByBoardId(Integer id);
+
   Status updateStatus(Integer id, Map<String, Object> fields);
 
   void deleteStatusById(Integer id);
